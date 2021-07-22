@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <title>My Player 1.0</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-light bg-dark">
+                <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1 text-white">My Player 1.0</span>
+                </div>
+            </nav>
+            </header>
+    
+            <main class="row m-3">
+                    <div class="col border border-dark p-3 m-2">
+                            <h5>Audio</h5>
+                            <p>Seleziona un brano in elenco per ascoltare la musica.</p>
+                    <div class="row">
+                        <div class="card col-md-6">
+                            <ul class="list-group list-group-flush" id="lee"></ul></div>
+                        <div class="card border-0 col-md-4" >
+                            <audio id="myaudio" width="100%" controls src=""></audio>
+                        </div>
+                    </div>  
+                        <script>
+                            $(document).ready(function() {
+                                let titolo, canzone;
+                                $.ajax({
+                                    url: "assets/media.json",
+                                    dataType: "json",
+                                    type: "GET",
+                                    success: function(data){
+                                        $.each(data.audio,function(i,el){
+                                            titolo = el.title;
+                                            canzone = el.file;
+                                            console.log(el);
+                                            $('#lee').append('<li class="list-group-item"><a href="assets/audio/'+ canzone+'"; class="mario text-dark text-decoration-none">' + titolo + '</a></li>'); 
+                                            $('.mario').on('click',function(e){
+                                            e.preventDefault();
+                                            var song = $(this).attr('href');
+                                            $("#myaudio").attr('src',song);
+                                            console.log(song);
+                                            document.getElementById('myaudio').play();
+                                        });
+                                    });
+                                
+                                }
+                            });
+                        });
+                        </script>
+                    </div>
+                    <div class="col border border-dark p-3 m-2">
+                        <h5>Video</h5>
+                        <p>Seleziona un video in elenco per visualizzarlo.</p>
+                        <div class="row ">
+                            <div class="card col-md-6">
+                                <ul class="list-group list-group-flush" id="max"></ul></div>
+                            <div class="card border-0 col-md-6">
+                                <video id="myvideo" width="100%" controls src=""></video>
+                            </div>
+                        </div>
+                    <script>
+                        $(document).ready(function() {
+                            let titolov ,video;
+                            $.ajax({
+                                url: "assets/media.json",
+                                dataType: "json",
+                                type: "GET",
+                                success: function(data){
+                                    $.each(data.video,function(i,el) {
+                                        titolov = el.title;
+                                        video = el.file;
+                                        console.log(el);
+                                        $('#max').append('<li class="list-group-item"><a href="assets/video/'+ video +'"; class="gianni text-dark text-decoration-none">' + titolov + '</a></li>'); 
+                                        $('.gianni').on('click',function(e){
+                                        e.preventDefault();
+                                        var vfile = $(this).attr('href');
+                                        $("#myvideo").attr('src',vfile);
+                                        document.getElementById('myvideo').play();
+                                    });
+                                });
+                            }
+                        });
+                    });
+                    </script>
+
+            </main>
+            <footer class="fixed-bottom bg-dark p-4">
+            </footer>
+            <script type="text/javascript" src="assets/js/filejs.js"></script>
+    </body>
+</html>

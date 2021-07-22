@@ -1,0 +1,2 @@
+('<li><button id="myaudio" ><a href="'+canzone+'"></a>' +titolo +'<button></li>')
+$('#finocchio').append('<ul class="list-group list-group-flush"><li class="list-group-item">'+titolov+'</li>')
